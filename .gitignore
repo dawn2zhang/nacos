@@ -8,7 +8,6 @@ target
 .DS_Store
 .factorypath
 /logs
-/lib
 *.iml
 node_modules
 test/derby.log
@@ -16,3 +15,5 @@ derby.log
 work
 test/logs
 derby.log
+yarn.lock
+.flattened-pom.xml

@@ -22,25 +22,41 @@ import java.util.Collection;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
+ * Addressable pattern base class.
+ *
  * @author <a href="mailto:liaochuntao@live.com">liaochuntao</a>
  */
 public abstract class AbstractMemberLookup implements MemberLookup {
-
-	protected ServerMemberManager memberManager;
-	protected AtomicBoolean start = new AtomicBoolean(false);
-
-	@Override
-	public void injectMemberManager(ServerMemberManager memberManager) {
-		this.memberManager = memberManager;
-	}
-
-	@Override
-	public void afterLookup(Collection<Member> members) {
-		this.memberManager.memberChange(members);
-	}
-
-	@Override
-	public void destroy() throws NacosException {
-
-	}
+    
+    protected ServerMemberManager memberManager;
+    
+    protected AtomicBoolean start = new AtomicBoolean(false);
+    
+    @Override
+    public void injectMemberManager(ServerMemberManager memberManager) {
+        this.memberManager = memberManager;
+    }
+    
+    @Override
+    public void afterLookup(Collection<Member> members) {
+        this.memberManager.memberChange(members);
+    }
+    
+    @Override
+    public void destroy() throws NacosException {
+    
+    }
+    
+    @Override
+    public void start() throws NacosException {
+        if (start.compareAndSet(false, true)) {
+            doStart();
+        }
+    }
+    
+    /**
+     * subclass can override this method if need.
+     * @throws NacosException NacosException
+     */
+    protected abstract void doStart() throws NacosException;
 }

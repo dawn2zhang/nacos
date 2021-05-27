@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.alibaba.nacos.config.server.auth;
 
 import com.alibaba.nacos.config.server.model.Page;
 
 /**
- * Permission CRUD service
+ * Permission CRUD service.
  *
  * @author nkorange
  * @since 1.2.0
@@ -26,10 +27,31 @@ import com.alibaba.nacos.config.server.model.Page;
 @SuppressWarnings("PMD.AbstractMethodOrInterfaceMethodMustUseJavadocRule")
 public interface PermissionPersistService {
 
-	Page<PermissionInfo> getPermissions(String role, int pageNo, int pageSize);
+    /**
+     * get the permissions of role by page.
+     *
+     * @param role role
+     * @param pageNo pageNo
+     * @param pageSize pageSize
+     * @return permissions page info
+     */
+    Page<PermissionInfo> getPermissions(String role, int pageNo, int pageSize);
 
-	void addPermission(String role, String resource, String action);
+    /**
+     * assign permission to role.
+     *
+     * @param role role
+     * @param resource resource
+     * @param action action
+     */
+    void addPermission(String role, String resource, String action);
 
-	void deletePermission(String role, String resource, String action);
-
+    /**
+     * delete the role's permission.
+     *
+     * @param role role
+     * @param resource resource
+     * @param action action
+     */
+    void deletePermission(String role, String resource, String action);
 }
